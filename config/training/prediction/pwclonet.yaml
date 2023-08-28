@@ -1,0 +1,8 @@
+# @package _group_
+sequence_len: ???
+num_input_channels: ???
+num_points: ???
+nb_levels: ???
+
+posenet_config:
+  type: pwclonet

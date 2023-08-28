@@ -1,0 +1,5 @@
+# @package _group_
+mode: supervised
+nb_levels: 4
+loss_option: l2_norm
+with_exp_weights: True

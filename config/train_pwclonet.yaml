@@ -1,0 +1,19 @@
+train_dir: ${oc.env:TRAIN_DIR}
+sequence_len: 2
+num_input_channels: 3
+num_points: 8192
+nb_levels: 4
+network_name: pwclonet
+scalar_last: False
+velo_to_pose: False
+shuffle: True
+
+optimizer_learning_rate: 0.001
+scheduler_decay_clip: 0.000001
+coslr: True
+
+defaults:
+  - dataset: ${oc.env:DATASET}
+  - training/loss: pwclonet
+  - training/prediction: pwclonet
+  - hydra/output: training

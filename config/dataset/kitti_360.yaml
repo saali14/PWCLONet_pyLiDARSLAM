@@ -1,0 +1,17 @@
+# @package _group_
+dataset: kitti_360
+root_dir: ${oc.env:KITTI360_DATASET}
+lidar_height: 64
+lidar_width: 720
+up_fov: 3
+down_fov: -24
+train_sequences: [0, 3, 4, 5, 6, 7] # removed sequence 2 because not complete data
+test_sequences: [0, 3, 4, 5, 6, 7, 9, 10 ]
+eval_sequences: [9, 10]
+augment: True
+frame_gap: 1
+train_frame_gap: 1
+near_treshold: 30
+num_points: ???
+scalar_last: ???
+velo_to_pose: ???

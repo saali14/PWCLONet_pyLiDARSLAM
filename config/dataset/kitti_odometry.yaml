@@ -1,0 +1,16 @@
+# @package _group_
+dataset: kitti_odometry
+root_dir: ${oc.env:KITTI_DATASET}
+lidar_height: 64
+lidar_width: 720
+up_fov: 3
+down_fov: -24
+train_sequences: [0, 1, 2, 3, 4, 5, 6]
+test_sequences: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+eval_sequences: [7, 8, 9, 10]
+augment: True
+frame_gap: 1
+train_frame_gap: 1
+num_points: ???
+scalar_last: ???
+velo_to_pose: ???
