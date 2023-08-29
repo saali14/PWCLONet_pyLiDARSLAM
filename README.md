@@ -73,7 +73,7 @@ For more details refer to their official [**documemtation**](https://www.cvlibs.
 To train pyLiDAR-SLAM-PWCLONET, follow the steps bellow *(assuming conda is intalled)*: 
 * Clone this repository:
     ```
-    git clone https://gitlab.uni.lu/relidar-slam/pylidar-slam-pwclonet.git
+    git clone https://github.com/saali14/PWCLONet_pyLiDARSLAM.git
     ```
 * Create conda environments **ReLiDAR-SLAM** using the environment file provided here [`env.yml`](env.yml):
     ```
