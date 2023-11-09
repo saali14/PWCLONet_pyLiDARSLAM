@@ -3,12 +3,12 @@
 ## Overview
 ![pyLiDAR-SLAM-PWCLO-Net](./Figures/odometry_trajectory.png)
 
-This is a demonstration of my master thesis in [**SnT**](https://www.uni.lu/snt-en/) with the [**CVI2 group**](https://cvi2.uni.lu/) under the supervision of Dr. Sk Aziz Ali. It proposes a PyTorch implementation of [**PWCLO-Net**](https://github.com/IRMVLab/PWCLONet) integrated into the [**pyLiDAR-SLAM toolox**](https://github.com/Kitware/pyLiDAR-SLAM).
+This project is an extension of [**Mohammed Elamine**](https://github.com/mohammed-elamine)'s master thesis conducted at the [**SnT**](https://www.uni.lu/snt-en/) research center, specifically within the [**CVI2 group**](https://cvi2.uni.lu/) group, at the [**University of Luxembourg**](https://www.uni.lu/en/), under the guidance of [**Dr. Sk Aziz Ali**](https://github.com/saali14). It introduces a PyTorch implementation of [**PWCLO-Net**](https://github.com/IRMVLab/PWCLONet), seamlessly integrated into the [**pyLiDAR-SLAM toolox**](https://github.com/Kitware/pyLiDAR-SLAM) toolbox.
 
 ## Datasets
 pyLiDAR-SLAM provides data pre-processing capabilities for a variety of datasets (please refer to the GitHub repository for additional details). Within this project, special attention has been given to KITTI and KITTI-360 datasets:
 
-* **KITTI**: The KITTI dataset's odometry benchmark, accessible via this [**link**](https://www.cvlibs.net/datasets/kitti/eval_odometry.php), contains 21 sequences11 of which have the ground truth poses (for more than 20k lidar frames). The LiDAR sensor capturing the environment is a rotating 64 LiDAR Channel.
+* **KITTI**: The KITTI dataset's odometry benchmark, accessible via this [**link**](https://www.cvlibs.net/datasets/kitti/eval_odometry.php), contains 21 sequences, 11 of which have the ground truth poses (for more than 20k lidar frames). The LiDAR sensor capturing the environment is a rotating 64 LiDAR Channel.
 
 To download this dataset follow these instructions:
 * Acquire the lidar frames from the odometry benchmark through this [**download link**](https://www.cvlibs.net/download.php?file=data_odometry_velodyne.zip) (approximately 80GB in size).
@@ -43,8 +43,8 @@ The layout of KITTI's data on disk must be as follows:
 
 * **KITTI-360**: Following the KITTI dataset, the same team introduced KITTI-360 featuring significantly extended sequences and uncorrected motion (by opposition to the KITTI benchmark).
 
-To download this dataset follow theese instructions:
-* Download KITTI360 dataset from there [**official website**](http://www.cvlibs.net/datasets/kitti-360/)
+To download this dataset follow these instructions:
+* Download KITTI-360 dataset from their [**official website**](http://www.cvlibs.net/datasets/kitti-360/)
 * Extract the archives to the root directory as follows:
 ```
 ├─ <KITTI_360_ROOT>    
@@ -70,7 +70,7 @@ For more details refer to their official [**documemtation**](https://www.cvlibs.
 ## Installation
 > *This project was tested on **Ubuntu 20.04** and **CUDA 11.4***</br>
 
-To train pyLiDAR-SLAM-PWCLONET, follow the steps bellow *(assuming conda is intalled)*: 
+To train **pyLiDAR-SLAM-PWCLONET**, follow the steps bellow *(assuming [`conda`](https://docs.conda.io/en/latest/) is intalled)*: 
 * Clone this repository:
     ```
     git clone https://github.com/saali14/PWCLONet_pyLiDARSLAM.git
@@ -140,7 +140,7 @@ HYDRA_FULL_ERROR=1 ./train.sh
 
 Inside the `train.sh` script file, you need to specify the following environment varibales:
 * **DATASET**: (mondatory) the name of the dataset you want to use. Choose **kitti_360** to use KITTI-360 dataset or **kitti_odometry** to choose the KITTI Odometry dataset. For more details refer to `slam/dataset/__init__.py`
-* **PYLIDAR_SLAM_PWCLONET_ABS_PATH**: (mondatory) that should contain the absolute path to the pylidar-slam-pwclonet directory.
+* **PYLIDAR_SLAM_PWCLONET_ABS_PATH**: (mondatory) that should contain the absolute path to the `pylidar-slam-pwclonet` directory.
 * **JOB_NAME**: (optional) to specify the name of the job you want to run (it will only be used if you have wandb installed)
 * **TRAIN_DIR**: (optional) to specify the directory name inside the hydra working directory where the logs and the checkpoints will be saved.
 
@@ -160,20 +160,14 @@ Inside the `test.sh` script file, you need to specify the `IN_CHECPOINT_FILE` en
 
 ![KITTI_02](Figures/kitti_02_paths.png)
 
+The above picture shows the predicted trajectories by different trained PWCLO-Net models on the seauence 02 of the KITTI Odometry dataset. In this project, 4 models were tested:
+* The pre-trained Tensorflow version of the PWCLO-Net given by the [**official github repository**](https://github.com/IRMVLab/PWCLONet): its predicted trajectory is in geen
+* 3 PyTorch versions of the PWCLO-Net: their predicted trajectories are in gray, blue and brown
+> The ground truth trajectory is in red
 
-## Visualization
-* You can visualize the 3D fused point clouds and labels with custom framge ranges using the following tool
-    ```
-    cd kitti360scripts/viewer
+From the above image, we can see that the performance of the pre-trained Tensorflow model is better than our PyTorch PWCLO-Net models. The proposed models exhibit slightly inferior performance compared to the pre-trained model, suggesting a requirement for further fine-tuning involving adjustments to batch sizes, scheduling, data augmentation, regularization, and other factors. Given the distinct nature of the PyTorch framework in comparison to TensorFlow, the models might necessitate different parameters, modified layers, or additional data pre-processing steps.
 
-    python3 kitti360Viewer3DRoutines.py --sequence ${sequence} --data ${data} --mode ${mode}
-    ```
-    $datapath$ `directory_path_to_your_dataset`</br>
-    $dataset$: name of the dataset as `kitti-360`, `kitti`,or `waymo`</br>
-    $mode$ : `semantic`, `instance`, `rgb`, `confidence`, `bbox`</br>
-    $sequence$: integer value between (0,2,3,4,5,6,7,9,10) for KITTI-360
-
-![KITTI360_labels](Figures/kitti360_views.png)
+For more details, please refer to Mohammed Elamine's [**master thesis report**](Master_Thesis_Report_ELAMINE_Mohammed.pdf).
 
 ## License
 
